@@ -1,0 +1,255 @@
+﻿@using EntityLayer;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--breadcrumbs-->
+<div id="content-header">
+    <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom">
+            <i class="icon-home"></i> Inicio
+        </a> 
+        <a href="#" class="current">Disponibilidad Docente</a>
+    </div>
+    <h1>Disponibilidad Docente</h1>
+</div>
+<!--End-breadcrumbs-->
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"><i class="icon-bookmark"></i></span>
+                    <h5>Seleccionar docente y marcar disponibilidad</h5>
+                </div>
+                <div class="widget-content">
+                    <form action="#" method="get" class="form-horizontal">
+                        <!--agregar este coso como html cuando todo salga bien, y el otro cuando salga mal y ya-->
+                        <div id="resultado"></div>
+                        <div class="control-group">
+                            <label class="control-label">Seleccione Docente:</label>
+                            <div class="controls">
+                                <input type="hidden" value="1" id="hdPeriodo" />
+                                <select id="cboDocente">
+                                    <option value="-1">Seleccione una opción</option>
+                                    @foreach(Docente docente in (List<Docente>)ViewBag.listaDocentes)
+                                    {
+                                        <option value="@docente.id">
+                                            @docente.nombres @docente.apellidoPaterno @docente.apellidoMaterno
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Máximo Horas Posibles: </label>
+                            <div class="controls">
+                                <input type="hidden" id="idDisponibilidad" value="0" />
+                                <input type="number" min="4" max="28" value="28" id="maximoHorasDocente" step="2"/>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Lunes</th>
+                                    <th>Martes</th>
+                                    <th>Miércoles</th>
+                                    <th>Jueves</th>
+                                    <th>Viernes</th>
+                                    <th>Sábado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>07:30 - 09:00</td>
+                                    <td><input type="checkbox" value="1" class="slot"/></td>
+                                    <td><input type="checkbox" value="10" class="slot" /></td>
+                                    <td><input type="checkbox" value="19" class="slot" /></td>
+                                    <td><input type="checkbox" value="28" class="slot" /></td>
+                                    <td><input type="checkbox" value="37" class="slot" /></td>
+                                    <td><input type="checkbox" value="46" class="slot" /></td>
+                                </tr>
+                                <tr>
+                                    <td>09:10 - 10:40</td>
+                                    <td><input type="checkbox" value="2" class="slot" /></td>
+                                    <td><input type="checkbox" value="11" class="slot" /></td>
+                                    <td><input type="checkbox" value="20" class="slot" /></td>
+                                    <td><input type="checkbox" value="29" class="slot" /></td>
+                                    <td><input type="checkbox" value="38" class="slot" /></td>
+                                    <td><input type="checkbox" value="47" class="slot" /></td>
+                                </tr>
+                                <tr>
+                                    <td>10:50 - 12:20</td>
+                                    <td><input type="checkbox" value="3" class="slot" /></td>
+                                    <td><input type="checkbox" value="12" class="slot" /></td>
+                                    <td><input type="checkbox" value="21" class="slot" /></td>
+                                    <td><input type="checkbox" value="30" class="slot" /></td>
+                                    <td><input type="checkbox" value="39" class="slot" /></td>
+                                    <td><input type="checkbox" value="48" class="slot" /></td>
+                                </tr>
+                                <tr>
+                                    <td>12:30 - 14:00</td>
+                                    <td><input type="checkbox" value="4" class="slot" /></td>
+                                    <td><input type="checkbox" value="13" class="slot" /></td>
+                                    <td><input type="checkbox" value="22" class="slot" /></td>
+                                    <td><input type="checkbox" value="31" class="slot" /></td>
+                                    <td><input type="checkbox" value="40" class="slot" /></td>
+                                    <td><input type="checkbox" value="49" class="slot" /></td>
+                                </tr>
+                                <tr>
+                                    <td>14:30 - 16:00</td>
+                                    <td><input type="checkbox" value="5" class="slot" /></td>
+                                    <td><input type="checkbox" value="14" class="slot" /></td>
+                                    <td><input type="checkbox" value="23" class="slot" /></td>
+                                    <td><input type="checkbox" value="32" class="slot" /></td>
+                                    <td><input type="checkbox" value="41" class="slot" /></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>16:10 - 17:40</td>
+                                    <td><input type="checkbox" value="6" class="slot" /></td>
+                                    <td><input type="checkbox" value="15" class="slot" /></td>
+                                    <td><input type="checkbox" value="24" class="slot" /></td>
+                                    <td><input type="checkbox" value="33" class="slot" /></td>
+                                    <td><input type="checkbox" value="42" class="slot" /></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>17:50 - 19:20</td>
+                                    <td><input type="checkbox" value="7" class="slot" /></td>
+                                    <td><input type="checkbox" value="16" class="slot" /></td>
+                                    <td><input type="checkbox" value="25" class="slot" /></td>
+                                    <td><input type="checkbox" value="34" class="slot" /></td>
+                                    <td><input type="checkbox" value="43" class="slot" /></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>19:30 - 21:00</td>
+                                    <td><input type="checkbox" value="8" class="slot" /></td>
+                                    <td><input type="checkbox" value="17" class="slot" /></td>
+                                    <td><input type="checkbox" value="26" class="slot" /></td>
+                                    <td><input type="checkbox" value="35" class="slot" /></td>
+                                    <td><input type="checkbox" value="44" class="slot" /></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>21:10 - 22:40</td>
+                                    <td><input type="checkbox" value="9" class="slot" /></td>
+                                    <td><input type="checkbox" value="18" class="slot" /></td>
+                                    <td><input type="checkbox" value="27" class="slot" /></td>
+                                    <td><input type="checkbox" value="36" class="slot" /></td>
+                                    <td><input type="checkbox" value="45" class="slot" /></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-actions">
+                            <button id="btnGuardarDisponibilidad" type="submit" class="btn btn-success">Guardar Disponibilidad</button>
+                        </div>
+                    </form>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type=checkbox]").css("opacity", 100);
+        $("#cboDocente").change(function () {
+            var parametros = {
+                idDocente: $("#cboDocente").val(),
+                idPeriodo: $("#hdPeriodo").val()
+            };
+            $.ajax({
+                url: "/DisponibilidadDocente/ObtenerDisponibilidadDocente",
+                data: JSON.stringify(parametros),
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#idDisponibilidad").val(0);
+                    $("#maximoHorasDocente").val(28);
+                    $("input[type=checkbox]").removeAttr("checked");
+                    if (data != null) {
+                        $("#idDisponibilidad").val(data.id);
+                        if (data.maximoHorasSemana > 0) {
+                            $("#maximoHorasDocente").val(data.maximoHorasSemana);
+                        }
+                        for (var i = 0; i < data.listaDisponibilidad.length; i++) {
+                            var check = data.listaDisponibilidad[i].slotHorario.id;
+                            $("input[type=checkbox][value=" + check + "]").attr("checked", "checked");
+                            //LA LECTURA ESTA BIEN EXCEPTO EN MAXIMAS HORAS
+                            //EL PROBLEMA ES EL CSS Y EL CHECK LE PONE UNA OPACIDAD...
+                        }
+                    }
+                }
+            })
+        });
+        $("#btnGuardarDisponibilidad").click(function (event) {
+            event.preventDefault();
+            if ($("#cboDocente").val() > 0) {
+                var horario = new Array();
+                $("input[type=checkbox]:checked").each(function () {
+                    horario.push({
+                        slotHorario: {
+                            id: $(this).val()
+                        }
+                    });
+                });
+                var disponibilidad = {
+                    id: $("#idDisponibilidad").val(),
+                    docente: {
+                        id: $("#cboDocente").val()
+                    },
+                    periodo: {
+                        id: $("#hdPeriodo").val()
+                    },
+                    maximoHorasSemana: $("#maximoHorasDocente").val(),
+                    listaDisponibilidad: horario,
+                }
+                console.log(disponibilidad);
+                $.ajax({
+                    url: "/DisponibilidadDocente/GuardarDisponibilidadDocente",
+                    data: JSON.stringify(disponibilidad),
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data > 0) {
+                            $("#resultado").html(
+                                "<div class='alert alert-success alert-block'>" +
+                                    "<a class='close' data-dismiss='alert' href='#'>×</a>" +
+                                    "<h4 class='alert-heading'>Exito</h4>" +
+                                    "La disponibilidad del docente se ha guardado satisfactoriamente." +
+                                "</div>"
+                            );
+                        } else {
+                            $("#resultado").html(
+                                "<div class='alert alert-block'>" +
+                                    "<a class='close' data-dismiss='alert' href='#'>×</a>" +
+                                    "<h4 class='alert-heading'>Error</h4>" +
+                                    "Se ha producido un error al guardar el registro." +
+                                "</div>"
+                            );
+                        }
+                    }
+                });
+            } else {
+                $("#resultado").html(
+                    "<div class='alert alert-info alert-block'>" +
+                        "<a class='close' data-dismiss='alert' href='#'>×</a>" +
+                        "<h4 class='alert-heading'>Advertencia</h4>" +
+                        "Debe de seleccionar un docente." +
+                    "</div>"
+                );
+            }
+        });
+    });
+</script>
+
